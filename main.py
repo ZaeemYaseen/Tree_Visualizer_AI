@@ -1,6 +1,7 @@
 import networkx as nx
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import *
 from matplotlib.widgets import *
 from PyQt5.QtWidgets import QMessageBox
 import sys
@@ -153,6 +154,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
 
     def setupUi(self, AISearchingTechniquesMainWindow):
         AISearchingTechniquesMainWindow.setObjectName("AISearchingTechniquesMainWindow")
+
         AISearchingTechniquesMainWindow.resize(779, 790)
         self.centralwidget = QtWidgets.QWidget(AISearchingTechniquesMainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -176,12 +178,14 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.Node1_input.setFont(font)
         self.Node1_input.setText("")
         self.Node1_input.setObjectName("Node1_input")
+        self.Node1_input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
         self.Node2_input = QtWidgets.QLineEdit(self.centralwidget)
         self.Node2_input.setGeometry(QtCore.QRect(26, 101, 137, 22))
         font = QtGui.QFont()
         font.setPointSize(8)
         self.Node2_input.setFont(font)
         self.Node2_input.setObjectName("Node2_input")
+        self.Node2_input.setStyleSheet("background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
         self.Node1Label = QtWidgets.QLabel(self.centralwidget)
         self.Node1Label.setGeometry(QtCore.QRect(26, 25, 40, 16))
         font = QtGui.QFont()
@@ -339,6 +343,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.GraphTypecomboBox.setItemText(0, _translate("AISearchingTechniquesMainWindow", "Undirectd Graph"))
         self.GraphTypecomboBox.setItemText(1, _translate("AISearchingTechniquesMainWindow", "Directed Graph"))
         self.SubmitButton.setText(_translate("AISearchingTechniquesMainWindow", "Submit"))
+        self.centralwidget.setStyleSheet("background-color: #b3d1ff;")
 
 
 if __name__ == "__main__":
