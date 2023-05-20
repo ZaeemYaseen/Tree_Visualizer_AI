@@ -91,9 +91,13 @@ class Ui_AISearchingTechniquesMainWindow(object):
                     goals = Goal_list
                     traced_path10, goal = graphucs.uniform_cost_search(start, goals, 2)
                     if (traced_path10):
-                        print('Path:', end=' ')
-                        Graph_dfs.print_path(traced_path10, goal)
-                        print()
+                        if traced_path10 is not None:
+                            print('Path:', end=' ')
+                            Graph_ucs.print_path(traced_path10, goal)
+                            print()
+                        else:
+                            print("No path found.")
+
 
             else:
                 if searchType == "BFS":
