@@ -2,12 +2,14 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import QTimer, Qt
 from matplotlib.widgets import *
 from PyQt5.QtWidgets import QMessageBox
 import sys
 from bfs import Graph_bfs
 from dfs import Graph_dfs
 from astar import Graph_astar
+from dls import Graph_dls
 
 DG = nx.DiGraph()
 G = nx.Graph()
@@ -67,6 +69,18 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         print('Path:', end=' ')
                         Graph_astar.print_path(traced_path5, goal)
                         print('\nCost:', cost3)
+
+                elif searchType == "DLS":
+                    graphdls = Graph_dls(directed=False)
+                    for i in range(0, self.counter):
+                        graphdls.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path10, goal = graphdls.depth_limited_search(start, goals)
+                    if (traced_path10):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path10, goal, 3)
+                        print()
 
             else:
                 if searchType == "BFS":
@@ -164,6 +178,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.SearchTypecomboBox.setFont(font)
         self.SearchTypecomboBox.setObjectName("SearchTypecomboBox")
+        self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
@@ -325,6 +340,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.setItemText(0, _translate("AISearchingTechniquesMainWindow", "BFS"))
         self.SearchTypecomboBox.setItemText(1, _translate("AISearchingTechniquesMainWindow", "DFS"))
         self.SearchTypecomboBox.setItemText(2, _translate("AISearchingTechniquesMainWindow", "A*"))
+        self.SearchTypecomboBox.setItemText(3, _translate("AISearchingTechniquesMainWindow", "DLS"))
         self.GenerateGraphButton.setText(_translate("AISearchingTechniquesMainWindow", "Generate Graph"))
         self.Node1Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 1"))
         self.Node2Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 2"))

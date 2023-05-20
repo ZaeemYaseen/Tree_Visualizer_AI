@@ -1,4 +1,4 @@
-class Graph_dfs:
+class Graph_dls:
     def __init__(self, directed=False):
         self.graph = {}
         self.directed = directed
@@ -15,7 +15,7 @@ class Graph_dfs:
             else:
                 self.graph[end] = [start]
 
-    def depth_first_search(self, start, goals):
+    def depth_limited_search(self, start, goals):
         visited = set()
         stack = [(start, [])]
 
@@ -34,5 +34,8 @@ class Graph_dfs:
         return None, None
 
     @staticmethod
-    def print_path(path, goal):
-        print(' -> '.join(path))
+    def print_path(path, goal, depth):
+        dis = ''
+        for i in range(0,depth):
+            dis = dis + path[i]
+        print(' -> '.join(dis))

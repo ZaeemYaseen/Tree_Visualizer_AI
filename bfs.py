@@ -107,4 +107,4 @@ class Graph_bfs:
 
     @staticmethod
     def print_path(path, goal):
-        print(' -> '.join(path + [goal]))
+        print(' -> '.join(path + ['GOAL REACHED']))
