@@ -15,6 +15,7 @@ from ids import Graph_ids
 from befs import Graph_best_first
 from abp import Graph_abp
 from sa import Graph_sa
+from bds import Graph_bds
 
 DG = nx.DiGraph()
 G = nx.Graph()
@@ -87,7 +88,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
                     traced_path10, goal = graphdls.depth_limited_search(start, goals, 2)
                     if (traced_path10):
                         print('Path:', end=' ')
-                        Graph_dfs.print_path(traced_path10, goal)
+                        Graph_dls.print_path(traced_path10, goal)
                         print()
 
                 elif searchType == "UCS":
@@ -99,7 +100,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
                     traced_path10, goal = graphucs.uniform_cost_search(start, goals, 2)
                     if (traced_path10):
                         print('Path:', end=' ')
-                        Graph_dfs.print_path(traced_path10, goal)
+                        Graph_ucs.print_path(traced_path10, goal)
                         print()
 
                 elif searchType == "IDS":
@@ -111,7 +112,19 @@ class Ui_AISearchingTechniquesMainWindow(object):
                     traced_path11, goal = graphids.iterative_deepning_search(start, goals)
                     if (traced_path11):
                         print('Path:', end=' ')
-                        Graph_dfs.print_path(traced_path11, goal)
+                        Graph_ids.print_path(traced_path11, goal)
+                        print()
+
+                elif searchType == "BDS":
+                    graphbds = Graph_bds(directed=False)
+                    for i in range(0, self.counter):
+                        graphbds.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path13, goal = graphbds.bidirectional_search(start, goals)
+                    if (traced_path13):
+                        print('Path:', end=' ')
+                        Graph_bds.print_path(traced_path13, goal)
                         print()
 
                 elif searchType == "BEFS":
@@ -208,6 +221,18 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         Graph_dfs.print_path(traced_path11, goal)
                         print()
 
+                elif searchType == "BDS":
+                    graphbds = Graph_bds(directed=True)
+                    for i in range(0, self.counter):
+                        graphbds.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path13, goal = graphbds.bidirectional_search(start, goals)
+                    if (traced_path13):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path13, goal)
+                        print()
+
         sys.stdout = original_stdout  # Reset the standard output to its original value
 
         with open("test.txt") as f:
@@ -268,6 +293,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.SearchTypecomboBox.setFont(font)
         self.SearchTypecomboBox.setObjectName("SearchTypecomboBox")
+        self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
@@ -456,6 +482,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.setItemText(6, _translate("AISearchingTechniquesMainWindow", "BEFS"))
         self.SearchTypecomboBox.setItemText(7, _translate("AISearchingTechniquesMainWindow", "SA"))
         self.SearchTypecomboBox.setItemText(8, _translate("AISearchingTechniquesMainWindow", "ABP"))
+        self.SearchTypecomboBox.setItemText(9, _translate("AISearchingTechniquesMainWindow", "BDS"))
         self.GenerateGraphButton.setText(_translate("AISearchingTechniquesMainWindow", "Generate Graph"))
         self.Node1Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 1"))
         self.Node2Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 2"))
