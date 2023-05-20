@@ -506,7 +506,6 @@ class Ui_AISearchingTechniquesMainWindow(object):
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     AISearchingTechniquesMainWindow = QtWidgets.QMainWindow()
     ui = Ui_AISearchingTechniquesMainWindow()
