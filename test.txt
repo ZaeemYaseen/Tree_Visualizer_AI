@@ -1,0 +1,2 @@
+Path: B -> C -> GOAL REACHED
+

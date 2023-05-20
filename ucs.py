@@ -1,4 +1,4 @@
-class Graph_dls:
+class Graph_ucs:
     def __init__(self, directed=False):
         self.graph = {}
         self.directed = directed
@@ -15,24 +15,24 @@ class Graph_dls:
             else:
                 self.graph[end] = [start]
 
-    def depth_limited_search(self, start, goals, depth_limit):
+    def uniform_cost_search(self, start, goals):
         visited = set()
-        stack = [(start, [], 0)]
+        stack = [(start, [])]
 
         while stack:
-            node, path, depth = stack.pop()
+            node, path = stack.pop()
 
-            if node in goals or depth ==depth_limit:
+            if node in goals:
                 return path, node
 
-            if depth < depth_limit and node not in visited:
+            if node not in visited:
                 visited.add(node)
                 neighbors = self.graph.get(node, [])
                 for neighbor in neighbors:
-                    stack.append((neighbor, path + [neighbor], depth + 1))
+                    stack.append((neighbor, path + [neighbor]))
 
         return None, None
 
     @staticmethod
     def print_path(path, goal):
-        print(' -> '.join(path + [goal]))
+        print(' -> '.join(path))

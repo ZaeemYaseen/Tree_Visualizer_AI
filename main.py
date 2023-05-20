@@ -10,6 +10,7 @@ from bfs import Graph_bfs
 from dfs import Graph_dfs
 from astar import Graph_astar
 from dls import Graph_dls
+from ucs import Graph_ucs
 
 DG = nx.DiGraph()
 G = nx.Graph()
@@ -76,10 +77,22 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         graphdls.add_edge(Node1_arr[i], Node2_arr[i])
                     start = self.StartNode_input.text()
                     goals = Goal_list
-                    traced_path10, goal = graphdls.depth_limited_search(start, goals)
+                    traced_path10, goal = graphdls.depth_limited_search(start, goals, 2)
                     if (traced_path10):
                         print('Path:', end=' ')
-                        Graph_dfs.print_path(traced_path10, goal, 3)
+                        Graph_dfs.print_path(traced_path10, goal)
+                        print()
+
+                elif searchType == "UCS":
+                    graphucs = Graph_ucs(directed=False)
+                    for i in range(0, self.counter):
+                        graphucs.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path10, goal = graphucs.uniform_cost_search(start, goals, 2)
+                    if (traced_path10):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path10, goal)
                         print()
 
             else:
@@ -178,6 +191,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.SearchTypecomboBox.setFont(font)
         self.SearchTypecomboBox.setObjectName("SearchTypecomboBox")
+        self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
@@ -311,6 +325,10 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.GoalNode_input.setObjectName("GoalNode_input")
         self.GraphTypecomboBox = QtWidgets.QComboBox(self.centralwidget)
         self.GraphTypecomboBox.setGeometry(QtCore.QRect(630, 100, 122, 22))
+
+        # self.limitlabel = QtWidgets.QLabel(self.centralwidget)
+        # self.limitlabel.setGeometry(QtCore.QRect(430, 160, 61, 16))
+
         font = QtGui.QFont()
         font.setPointSize(8)
         self.GraphTypecomboBox.setFont(font)
@@ -319,6 +337,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.GraphTypecomboBox.addItem("")
         self.SubmitButton = QtWidgets.QPushButton(self.centralwidget)
         self.SubmitButton.setGeometry(QtCore.QRect(430, 150, 93, 28))
+
         font = QtGui.QFont()
         font.setPointSize(8)
         self.SubmitButton.setFont(font)
@@ -341,6 +360,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.setItemText(1, _translate("AISearchingTechniquesMainWindow", "DFS"))
         self.SearchTypecomboBox.setItemText(2, _translate("AISearchingTechniquesMainWindow", "A*"))
         self.SearchTypecomboBox.setItemText(3, _translate("AISearchingTechniquesMainWindow", "DLS"))
+        self.SearchTypecomboBox.setItemText(4, _translate("AISearchingTechniquesMainWindow", "UCS"))
         self.GenerateGraphButton.setText(_translate("AISearchingTechniquesMainWindow", "Generate Graph"))
         self.Node1Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 1"))
         self.Node2Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 2"))

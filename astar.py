@@ -53,4 +53,4 @@ class Graph_astar:
 
     @staticmethod
     def print_path(path, goal):
-        print(' -> '.join(path + [goal]))
+        print(' -> '.join(path))
