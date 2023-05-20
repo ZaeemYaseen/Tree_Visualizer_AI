@@ -12,6 +12,9 @@ from astar import Graph_astar
 from dls import Graph_dls
 from ucs import Graph_ucs
 from ids import Graph_ids
+from befs import Graph_best_first
+from abp import Graph_abp
+from sa import Graph_sa
 
 DG = nx.DiGraph()
 G = nx.Graph()
@@ -28,6 +31,9 @@ class Ui_AISearchingTechniquesMainWindow(object):
     H = {}
     graphastar = Graph_astar(directed=False)
     graphastarD = Graph_astar(directed=True)
+
+    graphbefs = Graph_best_first(directed=False)
+    graphbefs = Graph_best_first(directed=True)
 
     def GeneratePathClicked(self):
         original_stdout = sys.stdout  # Save a reference to the original standard output
@@ -108,6 +114,17 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         Graph_dfs.print_path(traced_path11, goal)
                         print()
 
+                elif searchType == "BEFS":
+                    for i in range(0, self.counter):
+                        self.graphbefs.add_edge(Node1_arr[i], Node2_arr[i], int(self.EdgeWeight_arr[i]))
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path12, cost3, goal = self.graphbefs.best_first_search(start, goals)
+                    if (traced_path12):
+                        print('Path:', end=' ')
+                        Graph_best_first.print_path(traced_path12, goal)
+                        print('\nCost:', cost3)
+
             else:
                 if searchType == "BFS":
                     graphbfs = Graph_bfs(directed=True)
@@ -142,6 +159,17 @@ class Ui_AISearchingTechniquesMainWindow(object):
                     if (traced_path5):
                         print('Path:', end=' ')
                         Graph_astar.print_path(traced_path5, goal)
+                        print('\nCost:', cost3)
+
+                elif searchType == "BEFS":
+                    for i in range(0, self.counter):
+                        self.graphbefs.add_edge(Node1_arr[i], Node2_arr[i], int(self.EdgeWeight_arr[i]))
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path12, cost3, goal = self.graphbefs.best_first_search(start, goals)
+                    if (traced_path12):
+                        print('Path:', end=' ')
+                        Graph_best_first.print_path(traced_path12, goal)
                         print('\nCost:', cost3)
 
                 elif searchType == "dls":
@@ -240,6 +268,9 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.SearchTypecomboBox.setFont(font)
         self.SearchTypecomboBox.setObjectName("SearchTypecomboBox")
+        self.SearchTypecomboBox.addItem("")
+        self.SearchTypecomboBox.addItem("")
+        self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
@@ -422,6 +453,9 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.setItemText(3, _translate("AISearchingTechniquesMainWindow", "DLS"))
         self.SearchTypecomboBox.setItemText(4, _translate("AISearchingTechniquesMainWindow", "UCS"))
         self.SearchTypecomboBox.setItemText(5, _translate("AISearchingTechniquesMainWindow", "IDS"))
+        self.SearchTypecomboBox.setItemText(6, _translate("AISearchingTechniquesMainWindow", "BEFS"))
+        self.SearchTypecomboBox.setItemText(7, _translate("AISearchingTechniquesMainWindow", "SA"))
+        self.SearchTypecomboBox.setItemText(8, _translate("AISearchingTechniquesMainWindow", "ABP"))
         self.GenerateGraphButton.setText(_translate("AISearchingTechniquesMainWindow", "Generate Graph"))
         self.Node1Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 1"))
         self.Node2Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 2"))
