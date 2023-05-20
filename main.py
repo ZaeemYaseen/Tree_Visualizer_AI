@@ -11,6 +11,7 @@ from dfs import Graph_dfs
 from astar import Graph_astar
 from dls import Graph_dls
 from ucs import Graph_ucs
+from ids import Graph_ids
 
 DG = nx.DiGraph()
 G = nx.Graph()
@@ -95,6 +96,18 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         Graph_dfs.print_path(traced_path10, goal)
                         print()
 
+                elif searchType == "IDS":
+                    graphids = Graph_ids(directed=False)
+                    for i in range(0, self.counter):
+                        graphids.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path11, goal = graphids.iterative_deepning_search(start, goals)
+                    if (traced_path11):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path11, goal)
+                        print()
+
             else:
                 if searchType == "BFS":
                     graphbfs = Graph_bfs(directed=True)
@@ -130,6 +143,42 @@ class Ui_AISearchingTechniquesMainWindow(object):
                         print('Path:', end=' ')
                         Graph_astar.print_path(traced_path5, goal)
                         print('\nCost:', cost3)
+
+                elif searchType == "dls":
+                    graphdls = Graph_dls(directed=True)
+                    for i in range(0, self.counter):
+                        graphdls.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path10, goal = graphdls.depth_limited_search(start, goals)
+                    if (traced_path10):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path10, goal)
+                        print()
+
+                elif searchType == "UCS":
+                    graphucs = Graph_ucs(directed=True)
+                    for i in range(0, self.counter):
+                        graphucs.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path10, goal = graphucs.uniform_cost_search(start, goals, 2)
+                    if (traced_path10):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path10, goal)
+                        print()
+
+                elif searchType == "IDS":
+                    graphids = Graph_ids(directed=True)
+                    for i in range(0, self.counter):
+                        graphids.add_edge(Node1_arr[i], Node2_arr[i])
+                    start = self.StartNode_input.text()
+                    goals = Goal_list
+                    traced_path11, goal = graphids.iterative_deepning_search(start, goals)
+                    if (traced_path11):
+                        print('Path:', end=' ')
+                        Graph_dfs.print_path(traced_path11, goal)
+                        print()
 
         sys.stdout = original_stdout  # Reset the standard output to its original value
 
@@ -196,6 +245,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
         self.SearchTypecomboBox.addItem("")
+        self.SearchTypecomboBox.addItem("")
         self.GenerateGraphButton = QtWidgets.QPushButton(self.centralwidget)
         self.GenerateGraphButton.setGeometry(QtCore.QRect(630, 240, 131, 31))
         self.GenerateGraphButton.setObjectName("GenerateGraphButton")
@@ -239,6 +289,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.EdgeWieght_input.setFont(font)
         self.EdgeWieght_input.setObjectName("EdgeWieght_input")
+        self.EdgeWieght_input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
         self.AddNodesButton = QtWidgets.QPushButton(self.centralwidget)
         self.AddNodesButton.setGeometry(QtCore.QRect(26, 189, 93, 28))
         font = QtGui.QFont()
@@ -273,6 +324,8 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.Node_Input.setFont(font)
         self.Node_Input.setText("")
         self.Node_Input.setObjectName("Node_Input")
+        self.Node_Input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
+
         self.NodeLabel = QtWidgets.QLabel(self.centralwidget)
         self.NodeLabel.setGeometry(QtCore.QRect(227, 26, 33, 16))
         font = QtGui.QFont()
@@ -291,6 +344,8 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.NodeHeuristic_input.setFont(font)
         self.NodeHeuristic_input.setObjectName("NodeHeuristic_input")
+        self.NodeHeuristic_input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
+
         self.AddNodeHeuristicButton = QtWidgets.QPushButton(self.centralwidget)
         self.AddNodeHeuristicButton.setGeometry(QtCore.QRect(227, 130, 117, 28))
         font = QtGui.QFont()
@@ -305,6 +360,8 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.StartNode_input.setFont(font)
         self.StartNode_input.setText("")
         self.StartNode_input.setObjectName("StartNode_input")
+        self.StartNode_input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
+
         self.StartNodeLabel = QtWidgets.QLabel(self.centralwidget)
         self.StartNodeLabel.setGeometry(QtCore.QRect(430, 26, 61, 16))
         font = QtGui.QFont()
@@ -323,6 +380,8 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.GoalNode_input.setFont(font)
         self.GoalNode_input.setObjectName("GoalNode_input")
+        self.GoalNode_input.setStyleSheet( "background-color: lightgreen; border: 1px solid black; padding: 2px; font-family: Arial; font-size: 10px;")
+
         self.GraphTypecomboBox = QtWidgets.QComboBox(self.centralwidget)
         self.GraphTypecomboBox.setGeometry(QtCore.QRect(630, 100, 122, 22))
 
@@ -342,6 +401,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         font.setPointSize(8)
         self.SubmitButton.setFont(font)
         self.SubmitButton.setObjectName("SubmitButton")
+
         self.SubmitButton.clicked.connect(self.SubmitClicked)
         AISearchingTechniquesMainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(AISearchingTechniquesMainWindow)
@@ -361,6 +421,7 @@ class Ui_AISearchingTechniquesMainWindow(object):
         self.SearchTypecomboBox.setItemText(2, _translate("AISearchingTechniquesMainWindow", "A*"))
         self.SearchTypecomboBox.setItemText(3, _translate("AISearchingTechniquesMainWindow", "DLS"))
         self.SearchTypecomboBox.setItemText(4, _translate("AISearchingTechniquesMainWindow", "UCS"))
+        self.SearchTypecomboBox.setItemText(5, _translate("AISearchingTechniquesMainWindow", "IDS"))
         self.GenerateGraphButton.setText(_translate("AISearchingTechniquesMainWindow", "Generate Graph"))
         self.Node1Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 1"))
         self.Node2Label.setText(_translate("AISearchingTechniquesMainWindow", "Node 2"))
